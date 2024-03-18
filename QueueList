@@ -1,0 +1,37 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class QueueSystem {
+
+    private Queue<String> queue;
+
+    public QueueSystem() {
+        this.queue = new LinkedList<>();
+    }
+
+    public void joinQueue(String userName) {
+        queue.add(userName);
+        System.out.println(userName + " joined the queue.");
+    }
+
+    public int getPosition(String userName) {
+        int position = 0;
+        for (String user : queue) {
+            if (user.equals(userName)) {
+                return position;
+            }
+            position++;
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        QueueSystem queueSystem = new QueueSystem();
+
+        queueSystem.joinQueue("User1");
+        queueSystem.joinQueue("User2");
+        queueSystem.joinQueue("User3");
+
+        System.out.println("User2 is at position: " + queueSystem.getPosition("User2"));
+    }
+}
