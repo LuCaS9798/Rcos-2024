@@ -5,10 +5,12 @@ public class QueueSystem {
 
     private Queue<String> queue;
     private boolean isSupervisorOnline;
+    private String supervisorUsername;
 
     public QueueSystem() {
         this.queue = new LinkedList<>();
         this.isSupervisorOnline = false;
+        this.supervisorUsername = "";
     }
 
     public void joinQueue(String userName) {
@@ -27,24 +29,31 @@ public class QueueSystem {
         return -1;
     }
 
-    public void setSupervisorOnline(boolean online) {
+    public void setSupervisorStatus(boolean online, String username) {
         isSupervisorOnline = online;
-        System.out.println("Supervisor is now " + (online ? "online" : "offline") + ".");
+        supervisorUsername = online ? username : "";
+        System.out.println("Supervisor " + (online ? username + " is now online" : "is now offline"));
     }
 
     public boolean isSupervisorOnline() {
         return isSupervisorOnline;
     }
 
+    public String getSupervisorUsername() {
+        return supervisorUsername;
+    }
+
     public static void main(String[] args) {
         QueueSystem queueSystem = new QueueSystem();
 
-        queueSystem.setSupervisorOnline(true);
+    
+        queueSystem.setSupervisorStatus(true, "Supervisor1");
         queueSystem.joinQueue("User1");
         queueSystem.joinQueue("User2");
         queueSystem.joinQueue("User3");
 
         System.out.println("User2 is at position: " + queueSystem.getPosition("User2"));
         System.out.println("Is Supervisor online? " + queueSystem.isSupervisorOnline());
+        System.out.println("Supervisor username: " + queueSystem.getSupervisorUsername());
     }
 }
