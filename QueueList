@@ -4,9 +4,11 @@ import java.util.Queue;
 public class QueueSystem {
 
     private Queue<String> queue;
+    private boolean isSupervisorOnline;
 
     public QueueSystem() {
         this.queue = new LinkedList<>();
+        this.isSupervisorOnline = false;
     }
 
     public void joinQueue(String userName) {
@@ -25,13 +27,24 @@ public class QueueSystem {
         return -1;
     }
 
+    public void setSupervisorOnline(boolean online) {
+        isSupervisorOnline = online;
+        System.out.println("Supervisor is now " + (online ? "online" : "offline") + ".");
+    }
+
+    public boolean isSupervisorOnline() {
+        return isSupervisorOnline;
+    }
+
     public static void main(String[] args) {
         QueueSystem queueSystem = new QueueSystem();
 
+        queueSystem.setSupervisorOnline(true);
         queueSystem.joinQueue("User1");
         queueSystem.joinQueue("User2");
         queueSystem.joinQueue("User3");
 
         System.out.println("User2 is at position: " + queueSystem.getPosition("User2"));
+        System.out.println("Is Supervisor online? " + queueSystem.isSupervisorOnline());
     }
 }
